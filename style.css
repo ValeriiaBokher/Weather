@@ -185,3 +185,10 @@ h2 {
 .End {
 	text-align: center;
 }
+
+.link {
+	color: black;
+}
+.link:hover {
+	color: rgb(115, 130, 210);
+}

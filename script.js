@@ -24,6 +24,60 @@ let hour = today.getHours();
 let minutes = String(today.getMinutes()).padStart(2, "0");
 Time.innerHTML = `${hour}:${minutes}`;
 
+function ND() {
+	let nd1 = new Date();
+	nd1.setDate(nd1.getDate() + 1);
+	let date1 = nd1.getDate();
+	let month1 = String(nd1.getMonth() + 1).padStart(2, "0");
+	let year1 = nd1.getFullYear();
+
+	let nd2 = new Date();
+	nd2.setDate(nd2.getDate() + 2);
+	let date2 = nd2.getDate();
+	let month2 = String(nd2.getMonth() + 1).padStart(2, "0");
+	let year2 = nd2.getFullYear();
+
+	let nd3 = new Date();
+	nd3.setDate(nd3.getDate() + 3);
+	let date3 = nd3.getDate();
+	let month3 = String(nd3.getMonth() + 1).padStart(2, "0");
+	let year3 = nd3.getFullYear();
+
+	let nd4 = new Date();
+	nd4.setDate(nd4.getDate() + 4);
+	let date4 = nd4.getDate();
+	let month4 = String(nd4.getMonth() + 1).padStart(2, "0");
+	let year4 = nd4.getFullYear();
+
+	let nd5 = new Date();
+	nd5.setDate(nd5.getDate() + 5);
+	let date5 = nd5.getDate();
+	let month5 = String(nd5.getMonth() + 1).padStart(2, "0");
+	let year5 = nd5.getFullYear();
+
+	let days = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	document.querySelector("#day1").innerHTML = days[nd1.getDay()];
+	document.querySelector("#day2").innerHTML = days[nd2.getDay()];
+	document.querySelector("#day3").innerHTML = days[nd3.getDay()];
+	document.querySelector("#day4").innerHTML = days[nd4.getDay()];
+	document.querySelector("#day5").innerHTML = days[nd5.getDay()];
+
+	document.querySelector("#date1").innerHTML = `${date1}.${month1}.${year1}`;
+	document.querySelector("#date2").innerHTML = `${date2}.${month2}.${year2}`;
+	document.querySelector("#date3").innerHTML = `${date3}.${month3}.${year3}`;
+	document.querySelector("#date4").innerHTML = `${date4}.${month4}.${year4}`;
+	document.querySelector("#date5").innerHTML = `${date5}.${month5}.${year5}`;
+}
+ND();
+
 function search(event) {
 	event.preventDefault();
 	let writecity = document.querySelector("#city");
@@ -35,17 +89,8 @@ function search(event) {
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", search);
 
-function convertToF(event) {
-	event.preventDefault();
-	temperature = temperatureElement.innerHTML;
-	temperature = Number(temperature);
-	temperatureElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
-}
-let temperatureElement = document.querySelector("#celsius");
-let FLink = document.querySelector("#F-link");
-FLink.addEventListener("click", convertToF);
-
 function ShowResult(response) {
+	console.log(response.data);
 	document.querySelector("#local_city").innerHTML = `${response.data.name},`;
 	document.querySelector("#country").innerHTML = response.data.sys.country;
 	document.querySelector("#wind").innerHTML = Math.round(
@@ -54,7 +99,10 @@ function ShowResult(response) {
 	document.querySelector("#hum").innerHTML = response.data.main.humidity;
 	document.querySelector("#weather").innerHTML =
 		response.data.weather[0].main;
-	temperatureElement.innerHTML = Math.round(response.data.main.temp);
+
+	let temperatureElement = document.querySelector("#celsius");
+	celsiusTemperature = response.data.main.temp;
+	temperatureElement.innerHTML = Math.round(celsiusTemperature);
 	document.querySelector("#degree").innerHTML = `&deg;`;
 }
 
@@ -71,3 +119,27 @@ function Local(event) {
 	navigator.geolocation.getCurrentPosition(ShowPosition);
 }
 document.querySelector("#Position").addEventListener("click", Local);
+
+function convertToF(event) {
+	event.preventDefault();
+	CLink.classList.remove("active");
+	FLink.classList.add("active");
+	let temperatureElement = document.querySelector("#celsius");
+	let fahrenheiTemp = (celsiusTemperature * 9) / 5 + 32;
+	temperatureElement.innerHTML = Math.round(fahrenheiTemp);
+}
+
+function convertToC(event) {
+	event.preventDefault();
+	CLink.classList.add("active");
+	FLink.classList.remove("active");
+	let temperatureElement = document.querySelector("#celsius");
+	temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+celsiusTemperature = null;
+let FLink = document.querySelector("#F-link");
+FLink.addEventListener("click", convertToF);
+
+let CLink = document.querySelector("#C-link");
+CLink.addEventListener("click", convertToC);

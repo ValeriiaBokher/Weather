@@ -54,8 +54,15 @@
 	margin: 33px -10px 20px -10px !important;
 	padding: 0px 15px 5px 15px !important;
 }
-.text-F {
+
+.unit {
 	opacity: 0.5;
+}
+.active {
+	opacity: 1;
+}
+.active:hover {
+	cursor: default;
 }
 
 .next-days {
@@ -103,7 +110,7 @@ h2 {
 .measure {
 	font-size: 30px;
 	margin-left: -15px !important;
-	margin-top: 30px !important;
+	margin-top: 27px !important;
 	line-height: 30px !important;
 }
 .image_main {

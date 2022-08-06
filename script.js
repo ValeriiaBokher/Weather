@@ -134,7 +134,7 @@ function displayForecast(response) {
 			``;
 			f2 =
 				f2 +
-				`<div class="row n4">
+				`<div class="row n">
 			<div class="col-md-2 week">
 				<span id="day4">${formatDay(forecastDay.dt)}</span><br /><span
 					id="date4"
@@ -148,10 +148,14 @@ function displayForecast(response) {
 				/>
 			</div>
 			<div class="col-md-2 day">
-				<span class="celsius">${Math.round(forecastDay.temp.day)}</span>&deg;
+				<span class="celsius" id="next-temp-day">${Math.round(
+					forecastDay.temp.day
+				)}</span>&deg;
 			</div>
 			<div class="col-md-1 night">
-				<span class="celsius">${Math.round(forecastDay.temp.night)}</span>&deg;
+				<span class="celsius" id="netx-temp-night">${Math.round(
+					forecastDay.temp.night
+				)}</span>&deg;
 			</div>
 		</div>`;
 		}
@@ -208,6 +212,9 @@ function convertToF(event) {
 	let temperatureElement2 = document.querySelector("#celsius_night");
 	let fahrenheiTemp2 = (celsiusTemperature2 * 9) / 5 + 32;
 	temperatureElement2.innerHTML = Math.round(fahrenheiTemp2);
+
+	let tempEl = document.querySelector("#next-temp-day").get(0);
+	console.log(tempEl.InnerHTML);
 }
 
 function convertToC(event) {

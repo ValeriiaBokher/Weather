@@ -156,11 +156,7 @@ h2 {
 	padding-top: 5px !important;
 	letter-spacing: 3px;
 }
-.n1,
-.n2,
-.n3,
-.n4,
-.n5 {
+.n {
 	border: 2px solid black;
 	border-radius: 20px;
 	box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);

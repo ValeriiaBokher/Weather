@@ -24,59 +24,60 @@ let hour = today.getHours();
 let minutes = String(today.getMinutes()).padStart(2, "0");
 Time.innerHTML = `${hour}:${minutes}`;
 
-function ND() {
-	let nd1 = new Date();
-	nd1.setDate(nd1.getDate() + 1);
-	let date1 = nd1.getDate();
-	let month1 = String(nd1.getMonth() + 1).padStart(2, "0");
-	let year1 = nd1.getFullYear();
+// let nd1 = new Date();
+// nd1.setDate(nd1.getDate() + 1);
+// let date1 = nd1.getDate();
+// let month1 = String(nd1.getMonth() + 1).padStart(2, "0");
+// let year1 = nd1.getFullYear();
 
-	let nd2 = new Date();
-	nd2.setDate(nd2.getDate() + 2);
-	let date2 = nd2.getDate();
-	let month2 = String(nd2.getMonth() + 1).padStart(2, "0");
-	let year2 = nd2.getFullYear();
+// let nd2 = new Date();
+// nd2.setDate(nd2.getDate() + 2);
+// let date2 = nd2.getDate();
+// let month2 = String(nd2.getMonth() + 1).padStart(2, "0");
+// let year2 = nd2.getFullYear();
 
-	let nd3 = new Date();
-	nd3.setDate(nd3.getDate() + 3);
-	let date3 = nd3.getDate();
-	let month3 = String(nd3.getMonth() + 1).padStart(2, "0");
-	let year3 = nd3.getFullYear();
+// let nd3 = new Date();
+// nd3.setDate(nd3.getDate() + 3);
+// let date3 = nd3.getDate();
+// let month3 = String(nd3.getMonth() + 1).padStart(2, "0");
+// let year3 = nd3.getFullYear();
 
-	let nd4 = new Date();
-	nd4.setDate(nd4.getDate() + 4);
-	let date4 = nd4.getDate();
-	let month4 = String(nd4.getMonth() + 1).padStart(2, "0");
-	let year4 = nd4.getFullYear();
+// let nd4 = new Date();
+// nd4.setDate(nd4.getDate() + 4);
+// let date4 = nd4.getDate();
+// let month4 = String(nd4.getMonth() + 1).padStart(2, "0");
+// let year4 = nd4.getFullYear();
 
-	let nd5 = new Date();
-	nd5.setDate(nd5.getDate() + 5);
-	let date5 = nd5.getDate();
-	let month5 = String(nd5.getMonth() + 1).padStart(2, "0");
-	let year5 = nd5.getFullYear();
+// let nd5 = new Date();
+// nd5.setDate(nd5.getDate() + 5);
+// let date5 = nd5.getDate();
+// let month5 = String(nd5.getMonth() + 1).padStart(2, "0");
+// let year5 = nd5.getFullYear();
 
-	let days = [
-		"Sunday",
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thursday",
-		"Friday",
-		"Saturday",
-	];
-	document.querySelector("#day1").innerHTML = days[nd1.getDay()];
-	document.querySelector("#day2").innerHTML = days[nd2.getDay()];
-	document.querySelector("#day3").innerHTML = days[nd3.getDay()];
-	document.querySelector("#day4").innerHTML = days[nd4.getDay()];
-	document.querySelector("#day5").innerHTML = days[nd5.getDay()];
+// let days = [
+// 	"Sunday",
+// 	"Monday",
+// 	"Tuesday",
+// 	"Wednesday",
+// 	"Thursday",
+// 	"Friday",
+// 	"Saturday",
+// ];
+// document.querySelector("#day1").innerHTML = days[nd1.getDay()];
+// document.querySelector("#day2").innerHTML = days[nd2.getDay()];
+// document.querySelector("#day3").innerHTML = days[nd3.getDay()];
+// document.querySelector("#day4").innerHTML = days[nd4.getDay()];
+// document.querySelector("#day5").innerHTML = days[nd5.getDay()];
 
-	document.querySelector("#date1").innerHTML = `${date1}.${month1}.${year1}`;
-	document.querySelector("#date2").innerHTML = `${date2}.${month2}.${year2}`;
-	document.querySelector("#date3").innerHTML = `${date3}.${month3}.${year3}`;
-	document.querySelector("#date4").innerHTML = `${date4}.${month4}.${year4}`;
-	document.querySelector("#date5").innerHTML = `${date5}.${month5}.${year5}`;
-}
-ND();
+// document.querySelector("#date1").innerHTML = `${date1}.${month1}.${year1}`;
+// document.querySelector("#date2").innerHTML = `${date2}.${month2}.${year2}`;
+// document.querySelector("#date3").innerHTML = `${date3}.${month3}.${year3}`;
+// document.querySelector("#date4").innerHTML = `${date4}.${month4}.${year4}`;
+// document.querySelector("#date5").innerHTML = `${date5}.${month5}.${year5}`;
+
+// 	console.log(f2);
+// }
+// ND();
 
 function search(event) {
 	event.preventDefault();
@@ -96,8 +97,68 @@ function getForecast(coordinates) {
 	axios.get(apiURL).then(displayForecast);
 }
 
+function formatDay(timestamp) {
+	let date = new Date(timestamp * 1000);
+	date.setDate(date.getDate() + 1);
+	let day = date.getDay();
+	let days = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	return days[day];
+}
+
+function formatDate(timestamp) {
+	let date = new Date(timestamp * 1000);
+	console.log(date);
+	date.setDate(date.getDate() + 1);
+	let data = date.getDate();
+	let month = String(date.getMonth() + 1).padStart(2, "0");
+	let year = date.getFullYear();
+	return `${data}.${month}.${year}`;
+}
+
 function displayForecast(response) {
 	console.log(response.data.daily);
+
+	let forecast = response.data.daily;
+	document.querySelector("#night_temp").innerHTML = Math.round(
+		response.data.daily[0].temp.night
+	);
+	let f2 = '<div class="next-days">';
+	forecast.forEach(function (forecastDay, index) {
+		if (index < 5) {
+			f2 =
+				f2 +
+				`<div class="row n4">
+			<div class="col-md-2 week">
+				<span id="day4">${formatDay(forecastDay.dt)}</span><br /><span
+					id="date4"
+					>${formatDate(forecastDay.dt)}</span
+				>
+			</div>
+			<div class="col-md-6">
+				<img
+					class="image-next"
+					src="GIF/Linear/${forecastDay.weather[0].icon}.gif"
+				/>
+			</div>
+			<div class="col-md-2 day">
+				<span class="celsius">${Math.round(forecastDay.temp.day)}</span>&deg;
+			</div>
+			<div class="col-md-1 night">
+				<span class="celsius">${Math.round(forecastDay.temp.night)}</span>&deg;
+			</div>
+		</div>`;
+		}
+	});
+	f2 = f2 + "</div>";
+	document.querySelector("#forecast").innerHTML = f2;
 }
 
 function ShowResult(response) {
@@ -120,6 +181,8 @@ function ShowResult(response) {
 		`GIF/Linear/${response.data.weather[0].icon}.gif`
 	);
 	getForecast(response.data.coord);
+	let First = document.querySelector("#First");
+	First.classList.remove("first-active");
 }
 
 function ShowPosition(position) {

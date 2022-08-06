@@ -114,7 +114,8 @@ function ShowPosition(position) {
 	let lat = position.coords.latitude;
 	let lon = position.coords.longitude;
 	let apiKey = "72f3b615abb8588c7d1dd2bab8c25a14";
-	let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+	// let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+	let apiURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${apiKey}&units=metric`;
 	console.log(apiURL);
 	axios.get(apiURL).then(ShowResult);
 }

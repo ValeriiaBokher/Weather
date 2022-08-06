@@ -115,13 +115,15 @@ h2 {
 }
 .image_main {
 	display: block;
-	width: 110px;
+	max-width: 95px;
+	max-height: 90px;
 	margin-top: 10px !important;
 	margin-left: 20px !important;
 }
 .image_night {
 	display: block;
-	width: 80px;
+	max-width: 80px;
+	max-height: 100px;
 	margin-top: 10px !important;
 	margin-left: 40px !important;
 	margin-bottom: 10px !important;

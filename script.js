@@ -99,7 +99,6 @@ function getForecast(coordinates) {
 
 function formatDay(timestamp) {
 	let date = new Date(timestamp * 1000);
-	date.setDate(date.getDate() + 1);
 	let day = date.getDay();
 	let days = [
 		"Sunday",
@@ -116,7 +115,6 @@ function formatDay(timestamp) {
 function formatDate(timestamp) {
 	let date = new Date(timestamp * 1000);
 	console.log(date);
-	date.setDate(date.getDate() + 1);
 	let data = date.getDate();
 	let month = String(date.getMonth() + 1).padStart(2, "0");
 	let year = date.getFullYear();
@@ -127,12 +125,13 @@ function displayForecast(response) {
 	console.log(response.data.daily);
 
 	let forecast = response.data.daily;
-	document.querySelector("#night_temp").innerHTML = Math.round(
-		response.data.daily[0].temp.night
-	);
+	let temperatureElement2 = document.querySelector("#night_temp");
+	celsiusTemperature2 = response.data.daily[0].temp.night;
+
 	let f2 = '<div class="next-days">';
 	forecast.forEach(function (forecastDay, index) {
-		if (index < 5) {
+		if (index < 6 && index > 0) {
+			``;
 			f2 =
 				f2 +
 				`<div class="row n4">
@@ -205,6 +204,10 @@ function convertToF(event) {
 	let temperatureElement = document.querySelector("#celsius");
 	let fahrenheiTemp = (celsiusTemperature * 9) / 5 + 32;
 	temperatureElement.innerHTML = Math.round(fahrenheiTemp);
+
+	let temperatureElement2 = document.querySelector("#celsius_night");
+	let fahrenheiTemp2 = (celsiusTemperature2 * 9) / 5 + 32;
+	temperatureElement2.innerHTML = Math.round(fahrenheiTemp2);
 }
 
 function convertToC(event) {
@@ -213,9 +216,13 @@ function convertToC(event) {
 	FLink.classList.remove("active");
 	let temperatureElement = document.querySelector("#celsius");
 	temperatureElement.innerHTML = Math.round(celsiusTemperature);
+
+	let temperatureElement2 = document.querySelector("#celsius_night");
+	temperatureElement2.innerHTML = Math.round(celsiusTemperature2);
 }
 
 celsiusTemperature = null;
+celsiusTemperature2 = null;
 let FLink = document.querySelector("#F-link");
 FLink.addEventListener("click", convertToF);
 

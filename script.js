@@ -85,7 +85,7 @@ function displayForecast(response) {
 	);
 
 	document.querySelector("#weather").innerHTML =
-		response.data.daily[0].weather[0].description;
+		response.data.daily[0].weather[0].main;
 
 	let f2 = '<div class="next-days">';
 	forecast.forEach(function (forecastDay, index) {
@@ -151,10 +151,10 @@ document.querySelector("#Position").addEventListener("click", Local);
 
 function convertToF(event) {
 	event.preventDefault();
-	// let buttonF = document.querySelector(".button-F");
-	// buttonF.disabled = true;
-	// let buttonC = document.querySelector(".button-C");
-	// buttonC.disabled = false;
+	let buttonF = document.querySelector(".button-F");
+	buttonF.disabled = true;
+	let buttonC = document.querySelector(".button-C");
+	buttonC.disabled = false;
 	CLink.classList.remove("active");
 	FLink.classList.add("active");
 
@@ -184,10 +184,10 @@ function convertToC(event) {
 	event.preventDefault();
 	CLink.classList.add("active");
 	FLink.classList.remove("active");
-	// let buttonF = document.querySelector(".button-F");
-	// buttonF.disabled = false;
-	// let buttonC = document.querySelector(".button-C");
-	// buttonC.disabled = true;
+	let buttonF = document.querySelector(".button-F");
+	buttonF.disabled = false;
+	let buttonC = document.querySelector(".button-C");
+	buttonC.disabled = true;
 
 	let temperatureElement = document.querySelector("#celsius");
 	temperatureElement.innerHTML = Math.round(celsiusTemperature);

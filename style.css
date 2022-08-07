@@ -203,3 +203,8 @@ h2 {
 .link:hover {
 	color: rgb(115, 130, 210);
 }
+
+button:disabled,
+button[disabled] {
+	color: black !important;
+}

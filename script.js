@@ -67,11 +67,22 @@ function formatDate(timestamp) {
 }
 
 function displayForecast(response) {
-	//console.log(response.data.daily);
+	console.log(response.data.daily);
 
 	let forecast = response.data.daily;
-	let temperatureElement2 = document.querySelector("#night_temp");
+	let temperatureElement2 = document.querySelector("#celsius_night");
 	celsiusTemperature2 = response.data.daily[0].temp.night;
+	temperatureElement2.innerHTML = Math.round(celsiusTemperature2);
+	let temperatureElement = document.querySelector("#celsius");
+	celsiusTemperature = response.data.daily[0].temp.day;
+	temperatureElement.innerHTML = Math.round(celsiusTemperature);
+	document.querySelector("#degree").innerHTML = `&deg;`;
+
+	let iconElement = document.querySelector("#icon");
+	iconElement.setAttribute(
+		"src",
+		`GIF/Linear/${response.data.daily[0].weather[0].icon}.gif`
+	);
 
 	let f2 = '<div class="next-days">';
 	forecast.forEach(function (forecastDay, index) {
@@ -119,15 +130,6 @@ function ShowResult(response) {
 	document.querySelector("#hum").innerHTML = response.data.main.humidity;
 	document.querySelector("#weather").innerHTML =
 		response.data.weather[0].main;
-	let temperatureElement = document.querySelector("#celsius");
-	celsiusTemperature = response.data.main.temp;
-	temperatureElement.innerHTML = Math.round(celsiusTemperature);
-	document.querySelector("#degree").innerHTML = `&deg;`;
-	let iconElement = document.querySelector("#icon");
-	iconElement.setAttribute(
-		"src",
-		`GIF/Linear/${response.data.weather[0].icon}.gif`
-	);
 	getForecast(response.data.coord);
 	let First = document.querySelector("#First");
 	First.classList.remove("first-active");
@@ -148,12 +150,12 @@ document.querySelector("#Position").addEventListener("click", Local);
 
 function convertToF(event) {
 	event.preventDefault();
+	// let buttonF = document.querySelector(".button-F");
+	// buttonF.disabled = true;
+	// let buttonC = document.querySelector(".button-C");
+	// buttonC.disabled = false;
 	CLink.classList.remove("active");
 	FLink.classList.add("active");
-	let buttonF = document.querySelector(".button-F");
-	buttonF.disabled = true;
-	let buttonC = document.querySelector(".button-C");
-	buttonC.disabled = false;
 
 	let temperatureElement = document.querySelector("#celsius");
 	let fahrenheiTemp = (celsiusTemperature * 9) / 5 + 32;
@@ -181,10 +183,10 @@ function convertToC(event) {
 	event.preventDefault();
 	CLink.classList.add("active");
 	FLink.classList.remove("active");
-	let buttonF = document.querySelector(".button-F");
-	buttonF.disabled = false;
-	let buttonC = document.querySelector(".button-C");
-	buttonC.disabled = true;
+	// let buttonF = document.querySelector(".button-F");
+	// buttonF.disabled = false;
+	// let buttonC = document.querySelector(".button-C");
+	// buttonC.disabled = true;
 
 	let temperatureElement = document.querySelector("#celsius");
 	temperatureElement.innerHTML = Math.round(celsiusTemperature);

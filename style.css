@@ -57,9 +57,11 @@
 	margin: 33px -10px 20px -10px !important;
 	padding: 0px 15px 5px 15px !important;
 }
-
-.active {
+.unit {
 	opacity: 0.5 !important;
+}
+.active {
+	opacity: 1 !important;
 }
 .active:hover {
 	cursor: default !important;
@@ -185,6 +187,10 @@ h2 {
 .location_button {
 	border: none;
 	background: transparent;
+}
+.button-C: hover,
+.button-F: hover {
+	transition: none;
 }
 
 .End {

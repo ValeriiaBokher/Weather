@@ -192,7 +192,7 @@ function convertToC(event) {
 	});
 }
 function F2C(degree) {
-	return Math.round(degree);
+	return Math.round((degree - 32) / 1.8);
 }
 celsiusTemperature = null;
 celsiusTemperature2 = null;

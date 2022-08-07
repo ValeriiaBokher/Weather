@@ -84,6 +84,9 @@ function displayForecast(response) {
 		`GIF/Linear/${response.data.daily[0].weather[0].icon}.gif`
 	);
 
+	document.querySelector("#weather").innerHTML =
+		response.data.daily[0].weather[0].description;
+
 	let f2 = '<div class="next-days">';
 	forecast.forEach(function (forecastDay, index) {
 		if (index < 6 && index > 0) {
@@ -128,8 +131,6 @@ function ShowResult(response) {
 		response.data.wind.speed
 	);
 	document.querySelector("#hum").innerHTML = response.data.main.humidity;
-	document.querySelector("#weather").innerHTML =
-		response.data.weather[0].main;
 	getForecast(response.data.coord);
 	let First = document.querySelector("#First");
 	First.classList.remove("first-active");

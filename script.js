@@ -24,61 +24,6 @@ let hour = today.getHours();
 let minutes = String(today.getMinutes()).padStart(2, "0");
 Time.innerHTML = `${hour}:${minutes}`;
 
-// let nd1 = new Date();
-// nd1.setDate(nd1.getDate() + 1);
-// let date1 = nd1.getDate();
-// let month1 = String(nd1.getMonth() + 1).padStart(2, "0");
-// let year1 = nd1.getFullYear();
-
-// let nd2 = new Date();
-// nd2.setDate(nd2.getDate() + 2);
-// let date2 = nd2.getDate();
-// let month2 = String(nd2.getMonth() + 1).padStart(2, "0");
-// let year2 = nd2.getFullYear();
-
-// let nd3 = new Date();
-// nd3.setDate(nd3.getDate() + 3);
-// let date3 = nd3.getDate();
-// let month3 = String(nd3.getMonth() + 1).padStart(2, "0");
-// let year3 = nd3.getFullYear();
-
-// let nd4 = new Date();
-// nd4.setDate(nd4.getDate() + 4);
-// let date4 = nd4.getDate();
-// let month4 = String(nd4.getMonth() + 1).padStart(2, "0");
-// let year4 = nd4.getFullYear();
-
-// let nd5 = new Date();
-// nd5.setDate(nd5.getDate() + 5);
-// let date5 = nd5.getDate();
-// let month5 = String(nd5.getMonth() + 1).padStart(2, "0");
-// let year5 = nd5.getFullYear();
-
-// let days = [
-// 	"Sunday",
-// 	"Monday",
-// 	"Tuesday",
-// 	"Wednesday",
-// 	"Thursday",
-// 	"Friday",
-// 	"Saturday",
-// ];
-// document.querySelector("#day1").innerHTML = days[nd1.getDay()];
-// document.querySelector("#day2").innerHTML = days[nd2.getDay()];
-// document.querySelector("#day3").innerHTML = days[nd3.getDay()];
-// document.querySelector("#day4").innerHTML = days[nd4.getDay()];
-// document.querySelector("#day5").innerHTML = days[nd5.getDay()];
-
-// document.querySelector("#date1").innerHTML = `${date1}.${month1}.${year1}`;
-// document.querySelector("#date2").innerHTML = `${date2}.${month2}.${year2}`;
-// document.querySelector("#date3").innerHTML = `${date3}.${month3}.${year3}`;
-// document.querySelector("#date4").innerHTML = `${date4}.${month4}.${year4}`;
-// document.querySelector("#date5").innerHTML = `${date5}.${month5}.${year5}`;
-
-// 	console.log(f2);
-// }
-// ND();
-
 function search(event) {
 	event.preventDefault();
 	let writecity = document.querySelector("#city");
@@ -93,7 +38,7 @@ form.addEventListener("submit", search);
 function getForecast(coordinates) {
 	let apiKey = "72f3b615abb8588c7d1dd2bab8c25a14";
 	let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-	console.log(apiURL);
+	//console.log(apiURL);
 	axios.get(apiURL).then(displayForecast);
 }
 
@@ -114,7 +59,7 @@ function formatDay(timestamp) {
 
 function formatDate(timestamp) {
 	let date = new Date(timestamp * 1000);
-	console.log(date);
+	//console.log(date);
 	let data = date.getDate();
 	let month = String(date.getMonth() + 1).padStart(2, "0");
 	let year = date.getFullYear();
@@ -122,7 +67,7 @@ function formatDate(timestamp) {
 }
 
 function displayForecast(response) {
-	console.log(response.data.daily);
+	//console.log(response.data.daily);
 
 	let forecast = response.data.daily;
 	let temperatureElement2 = document.querySelector("#night_temp");
@@ -148,12 +93,12 @@ function displayForecast(response) {
 				/>
 			</div>
 			<div class="col-md-2 day">
-				<span class="celsius" id="next-temp-day">${Math.round(
+				<span class="celsius next-temp-day">${Math.round(
 					forecastDay.temp.day
 				)}</span>&deg;
 			</div>
 			<div class="col-md-1 night">
-				<span class="celsius" id="netx-temp-night">${Math.round(
+				<span class="celsius next-temp-night">${Math.round(
 					forecastDay.temp.night
 				)}</span>&deg;
 			</div>
@@ -165,7 +110,7 @@ function displayForecast(response) {
 }
 
 function ShowResult(response) {
-	console.log(response.data);
+	//console.log(response.data);
 	document.querySelector("#local_city").innerHTML = `${response.data.name},`;
 	document.querySelector("#country").innerHTML = response.data.sys.country;
 	document.querySelector("#wind").innerHTML = Math.round(
@@ -213,8 +158,18 @@ function convertToF(event) {
 	let fahrenheiTemp2 = (celsiusTemperature2 * 9) / 5 + 32;
 	temperatureElement2.innerHTML = Math.round(fahrenheiTemp2);
 
-	let tempEl = document.querySelector("#next-temp-day").get(0);
-	console.log(tempEl.InnerHTML);
+	let tempDays = document.querySelectorAll(".next-temp-day");
+	let tempNights = document.querySelectorAll(".next-temp-night");
+	tempDays.forEach(function (day) {
+		day.innerText = C2F(day.innerText);
+	});
+	tempNights.forEach(function (night) {
+		night.innerText = C2F(night.innerText);
+	});
+}
+
+function C2F(degree) {
+	return Math.round((degree * 9) / 5 + 32);
 }
 
 function convertToC(event) {
@@ -226,8 +181,19 @@ function convertToC(event) {
 
 	let temperatureElement2 = document.querySelector("#celsius_night");
 	temperatureElement2.innerHTML = Math.round(celsiusTemperature2);
-}
 
+	let tempDays = document.querySelectorAll(".next-temp-day");
+	let tempNights = document.querySelectorAll(".next-temp-night");
+	tempDays.forEach(function (day) {
+		day.innerText = F2C(day.innerText);
+	});
+	tempNights.forEach(function (night) {
+		night.innerText = F2C(night.innerText);
+	});
+}
+function F2C(degree) {
+	return Math.round(degree);
+}
 celsiusTemperature = null;
 celsiusTemperature2 = null;
 let FLink = document.querySelector("#F-link");

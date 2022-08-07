@@ -150,6 +150,11 @@ function convertToF(event) {
 	event.preventDefault();
 	CLink.classList.remove("active");
 	FLink.classList.add("active");
+	let buttonF = document.querySelector(".button-F");
+	buttonF.disabled = true;
+	let buttonC = document.querySelector(".button-C");
+	buttonC.disabled = false;
+
 	let temperatureElement = document.querySelector("#celsius");
 	let fahrenheiTemp = (celsiusTemperature * 9) / 5 + 32;
 	temperatureElement.innerHTML = Math.round(fahrenheiTemp);
@@ -176,6 +181,11 @@ function convertToC(event) {
 	event.preventDefault();
 	CLink.classList.add("active");
 	FLink.classList.remove("active");
+	let buttonF = document.querySelector(".button-F");
+	buttonF.disabled = false;
+	let buttonC = document.querySelector(".button-C");
+	buttonC.disabled = true;
+
 	let temperatureElement = document.querySelector("#celsius");
 	temperatureElement.innerHTML = Math.round(celsiusTemperature);
 
